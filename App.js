@@ -36,10 +36,10 @@ function MainStack() {
       <Stack.Screen
         name="Web"
         component={WebViewScreen}
-        options={{
-          title: '',
-          headerTransparent: true,
-        }}
+        // options={{
+        //   title: '',
+        //   headerTransparent: true,
+        // }}
       />
     </Stack.Navigator>
   );

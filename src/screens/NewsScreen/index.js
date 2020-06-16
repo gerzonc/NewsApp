@@ -11,6 +11,7 @@ import {
 import {getEverything} from '../../api/getRequest';
 import styles from './styles';
 import axios from 'axios';
+import FastImage from 'react-native-fast-image';
 
 export default function NewsScreen() {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,9 +56,16 @@ export default function NewsScreen() {
                         borderWidth: 0.5,
                       },
                     ]}>
-                    <Image
-                      style={{width: 150, height: 100, resizeMode: 'stretch'}}
-                      source={{uri: item.urlToImage}}
+                    <FastImage
+                      style={{
+                        width: 150,
+                        height: 100 /*resizeMode: 'stretch' */,
+                      }}
+                      source={{
+                        uri: item.urlToImage,
+                        priority: FastImage.priority.normal,
+                      }}
+                      resizeMode={FastImage.resizeMode.stretch}
                     />
                     <View
                       style={{

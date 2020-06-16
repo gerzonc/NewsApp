@@ -11,6 +11,7 @@ import {getReverseCode, getTopHeadlines} from '../../api/getRequest';
 import {GOOGLE_API_KEY} from 'react-native-dotenv';
 import {FlatList} from 'react-native-gesture-handler';
 import axios from 'axios';
+import FastImage from 'react-native-fast-image';
 
 export default function NewsModal({route, navigation}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -64,9 +65,16 @@ export default function NewsModal({route, navigation}) {
                         borderWidth: 0.5,
                       },
                     ]}>
-                    <Image
-                      style={{width: 150, height: 100, resizeMode: 'stretch'}}
-                      source={{uri: item.urlToImage}}
+                    <FastImage
+                      style={{
+                        width: 150,
+                        height: 100 /*resizeMode: 'stretch' */,
+                      }}
+                      source={{
+                        uri: item.urlToImage,
+                        priority: FastImage.priority.normal,
+                      }}
+                      resizeMode={FastImage.resizeMode.stretch}
                     />
                     <View
                       style={{

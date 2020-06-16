@@ -81,6 +81,8 @@ target 'NewsApp' do
 
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
+  pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
+
   target 'NewsAppTests' do
     inherit! :complete
     # Pods for testing

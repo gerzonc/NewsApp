@@ -28,6 +28,10 @@ build/
 .gradle
 local.properties
 *.iml
+\.settings
+\.classpath
+\.project
+.project
 
 # node.js
 #
@@ -60,3 +64,6 @@ buck-out/
 
 # ENV Variables
 .env
+
+# VS Code
+.vscode
