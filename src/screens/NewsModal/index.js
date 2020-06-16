@@ -1,42 +1,48 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
   ActivityIndicator,
-  FlatList,
   ScrollView,
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {getEverything} from '../../api/getRequest';
-import styles from './styles';
+import {getReverseCode, getTopHeadlines} from '../../api/getRequest';
+import {GOOGLE_API_KEY} from 'react-native-dotenv';
+import {FlatList} from 'react-native-gesture-handler';
 import axios from 'axios';
 
-export default function NewsScreen() {
+export default function NewsModal({route, navigation}) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
-
+  console.log;
+  const {
+    params: {latitude, longitude},
+  } = route.params;
   useEffect(() => {
     const source = axios.CancelToken.source();
-    getEverything().then(({articles}) => {
-      setIsLoading(false);
-      setData(articles);
-    });
+    getReverseCode(latitude, longitude, GOOGLE_API_KEY)
+      .then((countryCode) => getTopHeadlines(countryCode))
+      .then(({articles}) => {
+        setIsLoading(false);
+        setData(articles);
+      });
     return () => {
       source.cancel();
     };
-  }, []);
+  }, [latitude, longitude]);
+
   return (
-    <View style={styles.container}>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       {isLoading ? (
         <ActivityIndicator />
-      ) : (
+      ) : data.length ? (
         <FlatList
           data={data}
+          keyExtractor={(news) => news.publishedAt + news.title}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(news) => news.title}
-          renderItem={({item, index}) => {
+          renderItem={({item}) => {
             return (
               <ScrollView
                 style={[
@@ -45,7 +51,10 @@ export default function NewsScreen() {
                     paddingVertical: 10,
                   },
                 ]}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('Web', {params: {url: item.url}})
+                  }>
                   <View
                     style={[
                       {
@@ -62,7 +71,7 @@ export default function NewsScreen() {
                     <View
                       style={{
                         flexShrink: 1,
-                        paddingLeft: 8,
+                        paddingHorizontal: 8,
                         marginVertical: 6,
                       }}>
                       <Text
@@ -78,6 +87,10 @@ export default function NewsScreen() {
             );
           }}
         />
+      ) : (
+        <Text style={{fontWeight: 'bold', fontSize: 30, textAlign: 'center'}}>
+          No news to show from this country!
+        </Text>
       )}
     </View>
   );
