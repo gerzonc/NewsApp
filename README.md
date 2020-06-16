@@ -48,6 +48,7 @@ $ npx react-native run-ios
   * [axios](https://github.com/qiangmao/axios)
   * [react-native-maps](https://github.com/react-native-community/react-native-maps)
   * [react-native-dotenv](https://github.com/zetachang/react-native-dotenv)
+  * [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image)
   * [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
   * [News API](https://newsapi.org/docs/get-started)
   * [Google Maps Platform](https://developers.google.com/maps/documentation)
