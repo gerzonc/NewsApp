@@ -20,7 +20,13 @@ or
 ```console
 $ npm install
 ```
-Make sure you have [npm](https://nodejs.org/en/) installed. Once is done installing dependencies, run:
+You should get your API key from [News API](https://newsapi.org/docs/get-started) and [Google Maps Platform](https://developers.google.com/maps/documentation) and create a `.env` file in the root directory like this:
+```
+NEWS_API = YOUR_NEWS_API_KEY
+GOOGLE_API_KEY = YOUR_GOOGLE_API_KEY
+```
+
+Make sure you have [npm](https://nodejs.org/en/) installed. Once you've done all the process explained above, run:
 ```console
 $ npx react-native run-android
 ```
