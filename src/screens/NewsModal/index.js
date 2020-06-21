@@ -44,6 +44,12 @@ export default function NewsModal({route, navigation}) {
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           renderItem={({item}) => {
+            const normalisedSource =
+              item &&
+              typeof item.urlToImage === 'string' &&
+              !item.urlToImage.split('http')[1]
+                ? null
+                : item.urlToImage;
             return (
               <ScrollView
                 style={[
@@ -65,17 +71,19 @@ export default function NewsModal({route, navigation}) {
                         borderWidth: 0.5,
                       },
                     ]}>
-                    <FastImage
-                      style={{
-                        width: 150,
-                        height: 100 /*resizeMode: 'stretch' */,
-                      }}
-                      source={{
-                        uri: item.urlToImage,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.stretch}
-                    />
+                    {item.urlToImage ? (
+                      <FastImage
+                        style={{
+                          width: 150,
+                          height: 100,
+                        }}
+                        source={{
+                          uri: normalisedSource,
+                          priority: FastImage.priority.normal,
+                        }}
+                        resizeMode={FastImage.resizeMode.stretch}
+                      />
+                    ) : null}
                     <View
                       style={{
                         flexShrink: 1,
@@ -97,7 +105,7 @@ export default function NewsModal({route, navigation}) {
         />
       ) : (
         <Text style={{fontWeight: 'bold', fontSize: 30, textAlign: 'center'}}>
-          No news to show from this country!
+          No news to show from here!
         </Text>
       )}
     </View>

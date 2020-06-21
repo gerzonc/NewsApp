@@ -46,7 +46,8 @@ export default function NewsScreen() {
                     paddingVertical: 10,
                   },
                 ]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() =>
+                    navigation.navigate('Web', {params: {url: item.url}}>
                   <View
                     style={[
                       {
@@ -56,17 +57,19 @@ export default function NewsScreen() {
                         borderWidth: 0.5,
                       },
                     ]}>
-                    <FastImage
-                      style={{
-                        width: 150,
-                        height: 100 /*resizeMode: 'stretch' */,
-                      }}
-                      source={{
-                        uri: item.urlToImage,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.stretch}
-                    />
+                    {item.urlToImage ? (
+                      <FastImage
+                        style={{
+                          width: 150,
+                          height: 100,
+                        }}
+                        source={{
+                          uri: normalisedSource,
+                          priority: FastImage.priority.normal,
+                        }}
+                        resizeMode={FastImage.resizeMode.stretch}
+                      />
+                    ) : null}
                     <View
                       style={{
                         flexShrink: 1,
