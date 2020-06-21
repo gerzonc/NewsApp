@@ -12,7 +12,7 @@
 
 ## <a name="installation"></a> Installation and usage
 
-For installing this project on your machine just clone the project and run in the console: 
+Make sure you have [npm](https://nodejs.org/en/) installed. For installing this project on your machine just clone the project and run in the console: 
 ```console
 $ yarn install
 ```
@@ -26,7 +26,7 @@ NEWS_API = YOUR_NEWS_API_KEY
 GOOGLE_API_KEY = YOUR_GOOGLE_API_KEY
 ```
 
-Make sure you have [npm](https://nodejs.org/en/) installed. Once you've done all the process explained above, run:
+Once you've done all the process explained above, run:
 ```console
 $ npx react-native run-android
 ```
