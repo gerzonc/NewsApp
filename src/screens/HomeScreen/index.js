@@ -16,7 +16,7 @@ export default function HomeScreen({navigation}) {
         const {
           coordinate: {latitude, longitude},
         } = e.nativeEvent;
-        navigation.navigate('News', {
+        navigation.navigate('Modal', {
           params: {latitude, longitude},
         });
       }}

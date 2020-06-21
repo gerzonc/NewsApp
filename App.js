@@ -9,7 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './src//screens/HomeScreen';
 import NewsScreen from './src/screens/NewsScreen';
 import NewsModal from './src/screens/NewsModal';
-import WebViewScreen from './src/WebViewScreen';
+import WebViewScreen from './src/screens/WebViewScreen/index';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,7 +26,7 @@ function MainStack() {
         }}
       />
       <Stack.Screen
-        name="News"
+        name="Modal"
         component={NewsModal}
         options={{
           title: '',

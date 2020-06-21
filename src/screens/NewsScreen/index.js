@@ -1,19 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  FlatList,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, ActivityIndicator} from 'react-native';
 import {getEverything} from '../../api/getRequest';
 import styles from './styles';
 import axios from 'axios';
-import FastImage from 'react-native-fast-image';
+import ListView from '../../components/ListView';
 
-export default function NewsScreen() {
+export default function NewsScreen({route, navigation}) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -29,67 +21,7 @@ export default function NewsScreen() {
   }, []);
   return (
     <View style={styles.container}>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <FlatList
-          data={data}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(news) => news.title}
-          renderItem={({item, index}) => {
-            return (
-              <ScrollView
-                style={[
-                  {
-                    paddingHorizontal: 15,
-                    paddingVertical: 10,
-                  },
-                ]}>
-                <TouchableOpacity onPress={() =>
-                    navigation.navigate('Web', {params: {url: item.url}}>
-                  <View
-                    style={[
-                      {
-                        flexDirection: 'row',
-                        backgroundColor: '#fff',
-                        borderRadius: 5,
-                        borderWidth: 0.5,
-                      },
-                    ]}>
-                    {item.urlToImage ? (
-                      <FastImage
-                        style={{
-                          width: 150,
-                          height: 100,
-                        }}
-                        source={{
-                          uri: normalisedSource,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.stretch}
-                      />
-                    ) : null}
-                    <View
-                      style={{
-                        flexShrink: 1,
-                        paddingLeft: 8,
-                        marginVertical: 6,
-                      }}>
-                      <Text
-                        style={{
-                          fontWeight: 'bold',
-                        }}>
-                        {item.title}
-                      </Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
-            );
-          }}
-        />
-      )}
+      {isLoading ? <ActivityIndicator /> : <ListView data={data} />}
     </View>
   );
 }

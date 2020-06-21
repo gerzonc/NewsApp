@@ -1,22 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, ActivityIndicator} from 'react-native';
 import {getReverseCode, getTopHeadlines} from '../../api/getRequest';
 import {GOOGLE_API_KEY} from 'react-native-dotenv';
-import {FlatList} from 'react-native-gesture-handler';
 import axios from 'axios';
-import FastImage from 'react-native-fast-image';
+import ListView from '../../components/ListView';
 
 export default function NewsModal({route, navigation}) {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
-  console.log;
   const {
     params: {latitude, longitude},
   } = route.params;
@@ -38,71 +29,7 @@ export default function NewsModal({route, navigation}) {
       {isLoading ? (
         <ActivityIndicator />
       ) : data.length ? (
-        <FlatList
-          data={data}
-          keyExtractor={(news) => news.publishedAt + news.title}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          renderItem={({item}) => {
-            const normalisedSource =
-              item &&
-              typeof item.urlToImage === 'string' &&
-              !item.urlToImage.split('http')[1]
-                ? null
-                : item.urlToImage;
-            return (
-              <ScrollView
-                style={[
-                  {
-                    paddingHorizontal: 15,
-                    paddingVertical: 10,
-                  },
-                ]}>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('Web', {params: {url: item.url}})
-                  }>
-                  <View
-                    style={[
-                      {
-                        flexDirection: 'row',
-                        backgroundColor: '#fff',
-                        borderRadius: 5,
-                        borderWidth: 0.5,
-                      },
-                    ]}>
-                    {item.urlToImage ? (
-                      <FastImage
-                        style={{
-                          width: 150,
-                          height: 100,
-                        }}
-                        source={{
-                          uri: normalisedSource,
-                          priority: FastImage.priority.normal,
-                        }}
-                        resizeMode={FastImage.resizeMode.stretch}
-                      />
-                    ) : null}
-                    <View
-                      style={{
-                        flexShrink: 1,
-                        paddingHorizontal: 8,
-                        marginVertical: 6,
-                      }}>
-                      <Text
-                        style={{
-                          fontWeight: 'bold',
-                        }}>
-                        {item.title}
-                      </Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
-            );
-          }}
-        />
+        <ListView data={data} />
       ) : (
         <Text style={{fontWeight: 'bold', fontSize: 30, textAlign: 'center'}}>
           No news to show from here!
